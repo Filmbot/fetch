@@ -113,6 +113,13 @@ var routes = {
       'Content-Type': 'text/html; charset=utf-8'
     });
     res.end();
+  },
+  '/timeout': function(res, req) {
+    var params = querystring.parse(url.parse(req.url).query);
+    setTimeout(function() {
+      res.writeHead(200, {'Content-Type': 'text/plain'});
+      res.end('timeout');
+    }, params.delay);
   }
 };
 

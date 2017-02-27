@@ -1,5 +1,39 @@
 # window.fetch polyfill
 
+## This fetch fork has timeout feature 
+
+-----
+
+This fork adds timeout feature conforming to [node-fetch](https://github.com/bitinn/node-fetch).
+
+GitHub repo/branch: https://github.com/benestudio/fetch/tree/feature/timeout
+
+## Installation
+
+* `npm install whatwg-fetch-timeout --save`;
+
+
+## Example
+
+```javascript
+return fetch('/path', {timeout: 500}).then(function() {
+  // successful fetch
+}).catch(function(error) {
+  // network request failed / timeout
+})
+```
+
+Note: timeout is not yet supported by the official fetch api therefore this branch will not be merged nowadays.
+
+See also: https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout
+
+## ReactNative
+
+- Timeout at run time: with this fork
+- Timeout at build time: with node-fetch (that is the default for RN)
+
+-----
+
 The `fetch()` function is a Promise-based mechanism for programmatically making
 web requests in the browser. This project is a polyfill that implements a subset
 of the standard [Fetch specification][], enough to make `fetch` a viable

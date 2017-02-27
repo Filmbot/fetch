@@ -441,6 +441,9 @@
       }
 
       xhr.open(request.method, request.url, true)
+      if (init && typeof init.timeout === 'number') {
+        xhr.timeout = init.timeout
+      }
 
       if (request.credentials === 'include') {
         xhr.withCredentials = true

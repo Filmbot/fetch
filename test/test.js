@@ -1182,6 +1182,46 @@ suite('credentials mode', function() {
       })
     })
   })
+
+  suite('timeout', function() {
+    test('should timeout after 100ms', function() {
+      return fetch('/timeout?delay=150', {timeout: 100}).then(function() {
+        assert(false, 'should not get any response within timeout')
+      }).catch(function(error) {
+        assert.equal(error.name, 'TypeError')
+        assert.equal(error.message, 'Network request failed')
+      })
+    })
+
+    test('should timeout after 500ms', function() {
+      return fetch('/timeout?delay=550', {timeout: 500}).then(function() {
+        assert(false, 'should not get any response within timeout')
+      }).catch(function(error) {
+        assert.equal(error.name, 'TypeError')
+        assert.equal(error.message, 'Network request failed')
+      })
+    })
+
+    test('should not timeout after 50ms', function() {
+      return fetch('/timeout?delay=50', {timeout: 100}).then(function(response) {
+        return response.text()
+      }).then(function(data) {
+        assert.equal(data, 'timeout')
+      }).catch(function(error) {
+        assert.isError(error, 'there sould be no error')
+      })
+    })
+
+    test('should not timeout after 500ms', function() {
+      return fetch('/timeout?delay=500', {timeout: 550}).then(function(response) {
+        return response.text()
+      }).then(function(data) {
+        assert.equal(data, 'timeout')
+      }).catch(function(error) {
+        assert.isError(error, 'there sould be no error')
+      })
+    })
+  })
 })
 })
 
